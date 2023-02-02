@@ -4,7 +4,7 @@
             <thead class="thead">
                 <tr @click="$emit('sorter')" class="trHead">
                     <th>Name
-                        <b  v-if="sortArrow === true"><i class="fa-solid fa-arrow-down-long"></i>
+                        <b v-if="sortArrow === true"><i class="fa-solid fa-arrow-down-long"></i>
                         </b>
                         <b v-else-if="sortArrow === false">
                             <i else class="fa-solid fa-arrow-up-long"></i>
@@ -24,8 +24,9 @@
                 </tr>
                 <tr class="trBody">
 
-                    <td span="2"> Total </td>
 
+                    <td span="2"> Total </td>
+                    <td span="2"> </td>
                     <td>{{ height }} cm ({{ feet }})</td>
                 </tr>
 
@@ -40,7 +41,7 @@
                 <tr class="trBody">
 
                     <td span="2"> Total </td>
-
+                    <td span="2"> </td>
                     <td>{{ height }} cm ({{ feet }})</td>
                 </tr>
             </tbody>
@@ -82,6 +83,10 @@ td {
     background-color: #ff0;
     color: #000;
     font-size: 20px;
+}
+
+.thead {
+    cursor: pointer;
 }
 
 .trBody {

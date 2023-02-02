@@ -1,6 +1,6 @@
 <template >
-    <div  class="selector">
-        <button  @click="changeSelected" class="btn">choose a star wars movie</button>
+    <div class="selector">
+        <button @click="changeSelected" class="btn">choose a star wars movie</button>
         <div v-if="selected" class="selected">
             <h1 v-if="loading"><img :src="loadIcon" alt=""></h1>
             <h5 v-for="(item, index) in state" :key="index" @click="selectState(index)">
@@ -14,16 +14,17 @@
     <section class="section" v-if="selectedState.length">
 
         <marquee behavior="" direction="left" class="marq"> {{ loaded }} </marquee>
-   <div class="Heading">
-        <h2 class="charater">Character List</h2>
-        <select name="filter" @change="onChange($event)" id="filter">
-            
-            <option value="">Filter By</option>
-            <option value="">All</option>
-            <option v-for="item, index in gender" :key="index">{{ item }}</option>
-        </select>
-   </div>
-        <TableVue @sorter="sorter" :height="height" :sortArrow="sortArrow" :feet="feet" :fileterdState="fileterdState" :selectedState="selectedState" />
+        <div class="Heading">
+            <h2 class="charater">Character List</h2>
+            <select name="filter" @change="onChange($event)" id="filter">
+
+                <option value="">Filter By</option>
+                <option value="">All</option>
+                <option v-for="item, index in gender" :key="index">{{ item }}</option>
+            </select>
+        </div>
+        <TableVue @sorter="sorter" :height="height" :sortArrow="sortArrow" :feet="feet" :fileterdState="fileterdState"
+            :selectedState="selectedState" />
     </section>
 </template>
 <script>
@@ -39,12 +40,12 @@ export default {
             loaded: [],
             fileterdState: [],
             loading: true,
-            height:0,
+            height: 0,
             loading2: false,
             sortTypeASC: true,
             error: false,
             genders: [],
-            feet:[], 
+            feet: [],
             selected: false,
             errorMessage: "",
             filterValue: "",
@@ -67,11 +68,11 @@ export default {
     methods: {
         changeSelected() {
             this.selected = true;
-            
+
         },
         selectState(index) {
             this.selectedState = []
-            
+
             this.loading2 = true;
             const loaded = this.unmappedState.filter((data, ind) => ind === index);
             this.loaded = (loaded[0].opening_crawl)
@@ -100,11 +101,11 @@ export default {
                     this.gender = Array.from(new Set(gender1));
                     // const gender3 = Array.from(new Set(gender2.filter(Gender => Gender.gender)))
                     this.gender = this.gender.filter(Gender => Gender !== "none" && Gender !== "");
-                    
+
                     let totalSum = 0
                     this.selectedState.map(State => {
                         const parsedValue = parseInt(State.height)
-                        const current =  parsedValue ? parsedValue : 0
+                        const current = parsedValue ? parsedValue : 0
                         totalSum += current
                     })
                     this.height = totalSum
@@ -119,21 +120,17 @@ export default {
             this.filterValue = event.target.value;
             let gender = this.selectedState.filter(value => value.gender == this.filterValue);
             this.fileterdState = gender;
-            let sum = []
+            let totalSum = 0
             this.fileterdState.map(State => {
-                sum.push(parseInt(State.height));
+                const parsedValue = parseInt(State.height)
+                const current = parsedValue ? parsedValue : 0
+                totalSum += current
             })
-            let total = 0
-            for (let i = 0; i < sum.length; i++) {
-
-                total += sum[i]
-                this.height = total
-            }
-            console.log(this.height)
-            console.log(gender);
+            this.height = totalSum
+            this.toFeet(this.height)
         },
         sorter() {
-            
+
             this.sortTypeASC = !this.sortTypeASC;
             this.sortTypeASC ? this.selectedState.sort((a, b) => a.name.localeCompare(b.name)) : this.selectedState.sort((a, b) => b.name.localeCompare(a.name));
             this.sortArrow = !this.sortArrow
@@ -141,10 +138,10 @@ export default {
         toFeet(n) {
             var realFeet = ((n * 0.393700) / 12);
             var feet = Math.floor(realFeet);
-            var inches = Math.round((realFeet - feet) * 12);
-            this.feet=(feet + "ft/" + inches + 'in')
+            var inches = Math.round(n / 2.54);
+            this.feet = (feet + "ft/" + inches + 'in')
         }
-        
+
     },
     components: { TableVue }
 };
@@ -211,7 +208,7 @@ export default {
 }
 
 
-.Heading{
+.Heading {
     width: 90%;
     display: inline-flex;
     flex-direction: row;
@@ -219,6 +216,7 @@ export default {
     align-items: baseline;
     margin-bottom: -4%;
 }
+
 .marq {
     margin-top: 3%;
     width: 100%;
