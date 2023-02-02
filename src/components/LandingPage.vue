@@ -1,8 +1,8 @@
 <template >
     <div  class="selector">
-        <button  @click="changeSelected" class="btn">choose a movie</button>
+        <button  @click="changeSelected" class="btn">choose a star wars movie</button>
         <div v-if="selected" class="selected">
-            <h1 v-if="loading">Loading......</h1>
+            <h1 v-if="loading"><img :src="loadIcon" alt=""></h1>
             <h5 v-for="(item, index) in state" :key="index" @click="selectState(index)">
                 <span class="item">
                     {{ index + 1 }} - {{ item.title }} : {{ item.release_date }}
@@ -10,7 +10,7 @@
             </h5>
         </div>
     </div>
-    <h1 v-if="loading2">Loading.....</h1>
+    <h1 v-if="loading2"><img :src="loadIcon" alt=""></h1>
     <section class="section" v-if="selectedState.length">
 
         <marquee behavior="" direction="left" class="marq"> {{ loaded }} </marquee>
@@ -23,7 +23,7 @@
             <option v-for="item, index in gender" :key="index">{{ item }}</option>
         </select>
    </div>
-        <TableVue @sorter="sorter" :height="height" :feet="feet" :fileterdState="fileterdState" :selectedState="selectedState" />
+        <TableVue @sorter="sorter" :height="height" :sortArrow="sortArrow" :feet="feet" :fileterdState="fileterdState" :selectedState="selectedState" />
     </section>
 </template>
 <script>
@@ -44,12 +44,13 @@ export default {
             sortTypeASC: true,
             error: false,
             genders: [],
-            feet:[],
+            feet:[], 
             selected: false,
             errorMessage: "",
             filterValue: "",
             selectedState: [],
-            starWarsSvg: require("../assets/star_wars_logo.svg"),
+            sortArrow: true,
+            loadIcon: require("../assets/disastrousAltruisticCanary-size_restricted.gif"),
         };
     },
     mounted() {
@@ -132,8 +133,10 @@ export default {
             console.log(gender);
         },
         sorter() {
+            
             this.sortTypeASC = !this.sortTypeASC;
             this.sortTypeASC ? this.selectedState.sort((a, b) => a.name.localeCompare(b.name)) : this.selectedState.sort((a, b) => b.name.localeCompare(a.name));
+            this.sortArrow = !this.sortArrow
         },
         toFeet(n) {
             var realFeet = ((n * 0.393700) / 12);
@@ -164,6 +167,9 @@ export default {
     width: 100%;
     color: #000;
     background: #ff0;
+    border: none;
+    font-size: 20px;
+    outline: none;
 }
 
 .item {
@@ -200,7 +206,7 @@ export default {
     border: #ff0 2px solid;
     background: #ff0;
     color: #000;
-    font-size: 1rem;
+    font-size: 1.5rem;
 
 }
 
