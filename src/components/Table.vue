@@ -1,12 +1,12 @@
 <template>
 <div class="overflow">
-    <h2 class="character">Character List</h2>
     <table class="table">
         <thead class="thead">
-            <tr @click="sorter" class="trHead">
+            <tr @click="$emit('sorter')" class="trHead">
                 <th>Name</th>
                 <th>Gender</th>
                 <th>Height</th>
+                
             </tr>
         </thead>
         <tbody v-if="fileterdState.length">
@@ -14,13 +14,29 @@
                 <td>{{ item.name }}</td>
                 <td>{{ item.gender }}</td>
                 <td>{{ item.height }}</td>
+                
             </tr>
+            <tr class="trBody">
+                
+                <td span="2" > Total </td>
+                
+                <td>{{ height }}</td>
+            </tr>
+            
         </tbody>
         <tbody v-else-if="selectedState.length">
             <tr class="trBody" v-for="(item, index) in selectedState" :key="index">
                 <td>{{ item.name }}</td>
                 <td>{{ item.gender }}</td>
                 <td>{{ item.height }}</td>
+                
+            </tr>
+            <tr class="trBody">
+                
+                <td> Total </td>
+                <td></td>
+
+                <td>{{ height }}</td>
             </tr>
         </tbody>
     </table>
@@ -31,7 +47,8 @@ export default {
     name:'TableVue',
     props: {
         fileterdState: Array,
-        selectedState: Array
+        selectedState: Array,
+        height: Number,
     },
     sorter(){
         this.$emit('sorter')
@@ -56,4 +73,5 @@ export default {
 .trBody{
     font-size: 17px
 }
+
 </style>
