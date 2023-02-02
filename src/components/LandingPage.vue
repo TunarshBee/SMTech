@@ -23,7 +23,7 @@
             <option v-for="item, index in gender" :key="index">{{ item }}</option>
         </select>
    </div>
-        <TableVue @sorter="sorter" :height="height" :fileterdState="fileterdState" :selectedState="selectedState" />
+        <TableVue @sorter="sorter" :height="height" :feet="feet" :fileterdState="fileterdState" :selectedState="selectedState" />
     </section>
 </template>
 <script>
@@ -44,7 +44,7 @@ export default {
             sortTypeASC: true,
             error: false,
             genders: [],
-            
+            feet:[],
             selected: false,
             errorMessage: "",
             filterValue: "",
@@ -107,7 +107,7 @@ export default {
                         totalSum += current
                     })
                     this.height = totalSum
-                    console.log(totalSum)
+                    this.toFeet(this.height)
                 })
                 .catch((e) => {
                     console.log(e);
@@ -139,7 +139,7 @@ export default {
             var realFeet = ((n * 0.393700) / 12);
             var feet = Math.floor(realFeet);
             var inches = Math.round((realFeet - feet) * 12);
-            console.log(feet + "ft;" + inches + 'in')
+            this.feet=(feet + "ft/" + inches + 'in')
         }
         
     },

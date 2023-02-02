@@ -20,7 +20,7 @@
                 
                 <td span="2" > Total </td>
                 
-                <td>{{ height }}</td>
+                <td>{{ height }} cm ({{ feet }})</td>
             </tr>
             
         </tbody>
@@ -28,7 +28,7 @@
             <tr class="trBody" v-for="(item, index) in selectedState" :key="index">
                 <td>{{ item.name }}</td>
                 <td>{{ item.gender }}</td>
-                <td>{{ item.height }}</td>
+                <td>{{ item.height }} </td>
                 
             </tr>
             <tr class="trBody">
@@ -36,7 +36,7 @@
                 <td> Total </td>
                 <td></td>
 
-                <td>{{ height }}</td>
+                <td>{{ height }} cm ({{ feet }})</td>
             </tr>
         </tbody>
     </table>
@@ -49,6 +49,7 @@ export default {
         fileterdState: Array,
         selectedState: Array,
         height: Number,
+        feet:Array,
     },
     sorter(){
         this.$emit('sorter')
