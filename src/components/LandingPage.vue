@@ -5,7 +5,7 @@
         <div v-if="selected" class="selected">
             <h5 v-for="(item, index) in state" :key="index" @click="selectState(index)">
                 <span class="item">
-                    {{ index + 1 }} - {{ item }}
+                    {{ index + 1 }} - {{ item.title }} : {{ item.release_date }}
                 </span>
             </h5>
         </div>
@@ -50,9 +50,9 @@ export default {
             .get("https://swapi.dev/api/films")
             .then(({ data }) => {
                 this.loading = false;
-                this.state = data.results.map((title) => title.title);
+                this.state = data.results.map((title) => title);
                 this.unmappedState = data.results.map((title) => title);
-                // console.log(this.unmappedState);
+                console.log(this.state);
             })
             .catch((error) => console.log(error));
     },
@@ -115,7 +115,7 @@ export default {
     flex-direction: column;
     color: #ff0;
     border: #ff0 2px solid;
-    width: 25%;
+    width: fit-content;
     height: fit-content;
     border-radius: 10px;
     text-align: start;
