@@ -63,7 +63,7 @@ export default {
     border: #ff0 2px solid;
     color: #ff0;
     font-size: 14px;
-    margin-top: 5%;
+    margin-top: 1%;
 }
 .trHead{
     background-color: #ff0;

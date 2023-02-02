@@ -17,7 +17,8 @@
    <div class="Heading">
         <h2 class="charater">Character List</h2>
         <select name="filter" @change="onChange($event)" id="filter">
-            Filter By:
+            
+            <option value="">Filter By</option>
             <option value="">All</option>
             <option v-for="item, index in gender" :key="index">{{ item }}</option>
         </select>
@@ -199,9 +200,7 @@ export default {
     border: #ff0 2px solid;
     background: #ff0;
     color: #000;
-    font-size: 1.5rem;
-    
-
+    font-size: 1rem;
 
 }
 
